@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.MediaEventKeywordsDao">
+	<resultMap id="BaseResultMap" type="com.mybatis.entity.MediaEventKeywordsEntity">
+		<id column="mkid" property="mkid" jdbcType="INTEGER"/>
+		<result column="mtid" property="mtid" jdbcType="INTEGER"/>
+		<result column="keywords" property="keywords" jdbcType="VARCHAR"/>
+		<result column="not_keywords" property="notKeywords" jdbcType="VARCHAR"/>
+		<result column="deleted" property="deleted" jdbcType=""/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		mkid,mtid,keywords,not_keywords,deleted
+	</sql>
+	<insert id="insertRecord" parameterType="com.mybatis.entity.MediaEventKeywordsEntity">
+		insert into media_event_keywords(mkid,
+			mtid,
+			keywords,
+			not_keywords,
+			deleted)
+		values (#{mkid,jdbcType=INTEGER},
+			#{mtid,jdbcType=INTEGER},
+			#{keywords,jdbcType=VARCHAR},
+			#{notKeywords,jdbcType=VARCHAR},
+			#{deleted,jdbcType=})
+	</insert>
+	<insert id="insertSelective" parameterType="com.mybatis.entity.MediaEventKeywordsEntity">
+		insert into media_event_keywords
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="mkid != null" >
+				mkid,
+			</if>
+			<if test="mtid != null" >
+				mtid,
+			</if>
+			<if test="keywords != null" >
+				keywords,
+			</if>
+			<if test="notKeywords != null" >
+				not_keywords,
+			</if>
+			<if test="deleted != null" >
+				deleted,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="mkid != null" >
+				#{mkid,jdbcType=INTEGER},
+			</if>
+			<if test="mtid != null" >
+				#{mtid,jdbcType=INTEGER},
+			</if>
+			<if test="keywords != null" >
+				#{keywords,jdbcType=VARCHAR},
+			</if>
+			<if test="notKeywords != null" >
+				#{notKeywords,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null" >
+				#{deleted,jdbcType=},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from media_event_keywords where mkid= #{mkid,jdbcType=INTEGER}
+	</delete>
+	<update id="updateByIdSelective" parameterType="com.mybatis.entity.MediaEventKeywordsEntity">
+		update media_event_keywords
+		<set>
+			<if test="mtid != null" >
+				mtid=#{mtid,jdbcType=INTEGER},
+			</if>
+			<if test="keywords != null" >
+				keywords=#{keywords,jdbcType=VARCHAR},
+			</if>
+			<if test="notKeywords != null" >
+				not_keywords=#{notKeywords,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null" >
+				deleted=#{deleted,jdbcType=},
+			</if>
+		</set>
+		where mkid= #{mkid,jdbcType=INTEGER}
+	</update>
+	<update id="updateById" parameterType="com.mybatis.entity.MediaEventKeywordsEntity">
+		update media_event_keywords set
+			mtid=#{mtid,jdbcType=INTEGER},
+			keywords=#{keywords,jdbcType=VARCHAR},
+			not_keywords=#{notKeywords,jdbcType=VARCHAR},
+			deleted=#{deleted,jdbcType=}
+		where mkid= #{mkid,jdbcType=INTEGER}
+	</update>
+	<select id="countRecord" resultType="java.lang.Integer">
+		select count(*) from media_event_keywords
+	</select>
+	<select id="countSelective" parameterType="com.mybatis.entity.MediaEventKeywordsEntity" resultType="java.lang.Integer">
+		select count(*) from media_event_keywords where 1=1
+		<if test="mkid != null" >
+			and mkid=#{mkid,jdbcType=INTEGER}
+		</if>
+		<if test="mtid != null" >
+			and mtid=#{mtid,jdbcType=INTEGER}
+		</if>
+		<if test="keywords != null" >
+			and keywords=#{keywords,jdbcType=VARCHAR}
+		</if>
+		<if test="notKeywords != null" >
+			and not_keywords=#{notKeywords,jdbcType=VARCHAR}
+		</if>
+		<if test="deleted != null" >
+			and deleted=#{deleted,jdbcType=}
+		</if>
+	</select>
+	<select id="maxId" resultType="java.lang.Integer">
+		select max(mkid) from media_event_keywords
+	</select>
+	<select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from media_event_keywords
+		where mkid= #{mkid,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from media_event_keywords
+	</select>
+</mapper>

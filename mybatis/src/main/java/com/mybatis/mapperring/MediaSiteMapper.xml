@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.MediaSiteDao">
+	<resultMap id="BaseResultMap" type="com.mybatis.entity.MediaSiteEntity">
+		<id column="msid" property="msid" jdbcType="INTEGER"/>
+		<result column="site_name" property="siteName" jdbcType="VARCHAR"/>
+		<result column="domain" property="domain" jdbcType="VARCHAR"/>
+		<result column="media_type" property="mediaType" jdbcType="INTEGER"/>
+		<result column="last_modify" property="lastModify" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		msid,site_name,domain,media_type,last_modify
+	</sql>
+	<insert id="insertRecord" parameterType="com.mybatis.entity.MediaSiteEntity">
+		insert into media_site(msid,
+			site_name,
+			domain,
+			media_type,
+			last_modify)
+		values (#{msid,jdbcType=INTEGER},
+			#{siteName,jdbcType=VARCHAR},
+			#{domain,jdbcType=VARCHAR},
+			#{mediaType,jdbcType=INTEGER},
+			#{lastModify,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.mybatis.entity.MediaSiteEntity">
+		insert into media_site
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="msid != null" >
+				msid,
+			</if>
+			<if test="siteName != null" >
+				site_name,
+			</if>
+			<if test="domain != null" >
+				domain,
+			</if>
+			<if test="mediaType != null" >
+				media_type,
+			</if>
+			<if test="lastModify != null" >
+				last_modify,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="msid != null" >
+				#{msid,jdbcType=INTEGER},
+			</if>
+			<if test="siteName != null" >
+				#{siteName,jdbcType=VARCHAR},
+			</if>
+			<if test="domain != null" >
+				#{domain,jdbcType=VARCHAR},
+			</if>
+			<if test="mediaType != null" >
+				#{mediaType,jdbcType=INTEGER},
+			</if>
+			<if test="lastModify != null" >
+				#{lastModify,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from media_site where msid= #{msid,jdbcType=INTEGER}
+	</delete>
+	<update id="updateByIdSelective" parameterType="com.mybatis.entity.MediaSiteEntity">
+		update media_site
+		<set>
+			<if test="siteName != null" >
+				site_name=#{siteName,jdbcType=VARCHAR},
+			</if>
+			<if test="domain != null" >
+				domain=#{domain,jdbcType=VARCHAR},
+			</if>
+			<if test="mediaType != null" >
+				media_type=#{mediaType,jdbcType=INTEGER},
+			</if>
+			<if test="lastModify != null" >
+				last_modify=#{lastModify,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where msid= #{msid,jdbcType=INTEGER}
+	</update>
+	<update id="updateById" parameterType="com.mybatis.entity.MediaSiteEntity">
+		update media_site set
+			site_name=#{siteName,jdbcType=VARCHAR},
+			domain=#{domain,jdbcType=VARCHAR},
+			media_type=#{mediaType,jdbcType=INTEGER},
+			last_modify=#{lastModify,jdbcType=TIMESTAMP}
+		where msid= #{msid,jdbcType=INTEGER}
+	</update>
+	<select id="countRecord" resultType="java.lang.Integer">
+		select count(*) from media_site
+	</select>
+	<select id="countSelective" parameterType="com.mybatis.entity.MediaSiteEntity" resultType="java.lang.Integer">
+		select count(*) from media_site where 1=1
+		<if test="msid != null" >
+			and msid=#{msid,jdbcType=INTEGER}
+		</if>
+		<if test="siteName != null" >
+			and site_name=#{siteName,jdbcType=VARCHAR}
+		</if>
+		<if test="domain != null" >
+			and domain=#{domain,jdbcType=VARCHAR}
+		</if>
+		<if test="mediaType != null" >
+			and media_type=#{mediaType,jdbcType=INTEGER}
+		</if>
+		<if test="lastModify != null" >
+			and last_modify=#{lastModify,jdbcType=TIMESTAMP}
+		</if>
+	</select>
+	<select id="maxId" resultType="java.lang.Integer">
+		select max(msid) from media_site
+	</select>
+	<select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from media_site
+		where msid= #{msid,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from media_site
+	</select>
+</mapper>

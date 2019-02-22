@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.MultimediaSiteDao">
+	<resultMap id="BaseResultMap" type="com.mybatis.entity.MultimediaSiteEntity">
+		<id column="msid" property="msid" jdbcType="INTEGER"/>
+		<result column="msiteName" property="msiteName" jdbcType="VARCHAR"/>
+		<result column="msiteDomain" property="msiteDomain" jdbcType="VARCHAR"/>
+		<result column="msiteType" property="msiteType" jdbcType="INTEGER"/>
+		<result column="last_modify" property="lastModify" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		msid,msiteName,msiteDomain,msiteType,last_modify
+	</sql>
+	<insert id="insertRecord" parameterType="com.mybatis.entity.MultimediaSiteEntity">
+		insert into multimedia_site(msid,
+			msiteName,
+			msiteDomain,
+			msiteType,
+			last_modify)
+		values (#{msid,jdbcType=INTEGER},
+			#{msiteName,jdbcType=VARCHAR},
+			#{msiteDomain,jdbcType=VARCHAR},
+			#{msiteType,jdbcType=INTEGER},
+			#{lastModify,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.mybatis.entity.MultimediaSiteEntity">
+		insert into multimedia_site
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="msid != null" >
+				msid,
+			</if>
+			<if test="msiteName != null" >
+				msiteName,
+			</if>
+			<if test="msiteDomain != null" >
+				msiteDomain,
+			</if>
+			<if test="msiteType != null" >
+				msiteType,
+			</if>
+			<if test="lastModify != null" >
+				last_modify,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="msid != null" >
+				#{msid,jdbcType=INTEGER},
+			</if>
+			<if test="msiteName != null" >
+				#{msiteName,jdbcType=VARCHAR},
+			</if>
+			<if test="msiteDomain != null" >
+				#{msiteDomain,jdbcType=VARCHAR},
+			</if>
+			<if test="msiteType != null" >
+				#{msiteType,jdbcType=INTEGER},
+			</if>
+			<if test="lastModify != null" >
+				#{lastModify,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from multimedia_site where msid= #{msid,jdbcType=INTEGER}
+	</delete>
+	<update id="updateByIdSelective" parameterType="com.mybatis.entity.MultimediaSiteEntity">
+		update multimedia_site
+		<set>
+			<if test="msiteName != null" >
+				msiteName=#{msiteName,jdbcType=VARCHAR},
+			</if>
+			<if test="msiteDomain != null" >
+				msiteDomain=#{msiteDomain,jdbcType=VARCHAR},
+			</if>
+			<if test="msiteType != null" >
+				msiteType=#{msiteType,jdbcType=INTEGER},
+			</if>
+			<if test="lastModify != null" >
+				last_modify=#{lastModify,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where msid= #{msid,jdbcType=INTEGER}
+	</update>
+	<update id="updateById" parameterType="com.mybatis.entity.MultimediaSiteEntity">
+		update multimedia_site set
+			msiteName=#{msiteName,jdbcType=VARCHAR},
+			msiteDomain=#{msiteDomain,jdbcType=VARCHAR},
+			msiteType=#{msiteType,jdbcType=INTEGER},
+			last_modify=#{lastModify,jdbcType=TIMESTAMP}
+		where msid= #{msid,jdbcType=INTEGER}
+	</update>
+	<select id="countRecord" resultType="java.lang.Integer">
+		select count(*) from multimedia_site
+	</select>
+	<select id="countSelective" parameterType="com.mybatis.entity.MultimediaSiteEntity" resultType="java.lang.Integer">
+		select count(*) from multimedia_site where 1=1
+		<if test="msid != null" >
+			and msid=#{msid,jdbcType=INTEGER}
+		</if>
+		<if test="msiteName != null" >
+			and msiteName=#{msiteName,jdbcType=VARCHAR}
+		</if>
+		<if test="msiteDomain != null" >
+			and msiteDomain=#{msiteDomain,jdbcType=VARCHAR}
+		</if>
+		<if test="msiteType != null" >
+			and msiteType=#{msiteType,jdbcType=INTEGER}
+		</if>
+		<if test="lastModify != null" >
+			and last_modify=#{lastModify,jdbcType=TIMESTAMP}
+		</if>
+	</select>
+	<select id="maxId" resultType="java.lang.Integer">
+		select max(msid) from multimedia_site
+	</select>
+	<select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from multimedia_site
+		where msid= #{msid,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from multimedia_site
+	</select>
+</mapper>

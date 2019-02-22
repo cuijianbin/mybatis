@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.MediaEventInfoDao">
+	<resultMap id="BaseResultMap" type="com.mybatis.entity.MediaEventInfoEntity">
+		<id column="meid" property="meid" jdbcType="INTEGER"/>
+		<result column="msid" property="msid" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+		<result column="keywords" property="keywords" jdbcType="VARCHAR"/>
+		<result column="user_id" property="userId" jdbcType="INTEGER"/>
+		<result column="last_modify" property="lastModify" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		meid,msid,name,start_time,end_time,keywords,user_id,last_modify
+	</sql>
+	<insert id="insertRecord" parameterType="com.mybatis.entity.MediaEventInfoEntity">
+		insert into media_event_info(meid,
+			msid,
+			name,
+			start_time,
+			end_time,
+			keywords,
+			user_id,
+			last_modify)
+		values (#{meid,jdbcType=INTEGER},
+			#{msid,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{startTime,jdbcType=TIMESTAMP},
+			#{endTime,jdbcType=TIMESTAMP},
+			#{keywords,jdbcType=VARCHAR},
+			#{userId,jdbcType=INTEGER},
+			#{lastModify,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.mybatis.entity.MediaEventInfoEntity">
+		insert into media_event_info
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="meid != null" >
+				meid,
+			</if>
+			<if test="msid != null" >
+				msid,
+			</if>
+			<if test="name != null" >
+				name,
+			</if>
+			<if test="startTime != null" >
+				start_time,
+			</if>
+			<if test="endTime != null" >
+				end_time,
+			</if>
+			<if test="keywords != null" >
+				keywords,
+			</if>
+			<if test="userId != null" >
+				user_id,
+			</if>
+			<if test="lastModify != null" >
+				last_modify,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="meid != null" >
+				#{meid,jdbcType=INTEGER},
+			</if>
+			<if test="msid != null" >
+				#{msid,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null" >
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null" >
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null" >
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="keywords != null" >
+				#{keywords,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null" >
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="lastModify != null" >
+				#{lastModify,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from media_event_info where meid= #{meid,jdbcType=INTEGER}
+	</delete>
+	<update id="updateByIdSelective" parameterType="com.mybatis.entity.MediaEventInfoEntity">
+		update media_event_info
+		<set>
+			<if test="msid != null" >
+				msid=#{msid,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null" >
+				name=#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null" >
+				start_time=#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null" >
+				end_time=#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="keywords != null" >
+				keywords=#{keywords,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null" >
+				user_id=#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="lastModify != null" >
+				last_modify=#{lastModify,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where meid= #{meid,jdbcType=INTEGER}
+	</update>
+	<update id="updateById" parameterType="com.mybatis.entity.MediaEventInfoEntity">
+		update media_event_info set
+			msid=#{msid,jdbcType=VARCHAR},
+			name=#{name,jdbcType=VARCHAR},
+			start_time=#{startTime,jdbcType=TIMESTAMP},
+			end_time=#{endTime,jdbcType=TIMESTAMP},
+			keywords=#{keywords,jdbcType=VARCHAR},
+			user_id=#{userId,jdbcType=INTEGER},
+			last_modify=#{lastModify,jdbcType=TIMESTAMP}
+		where meid= #{meid,jdbcType=INTEGER}
+	</update>
+	<select id="countRecord" resultType="java.lang.Integer">
+		select count(*) from media_event_info
+	</select>
+	<select id="countSelective" parameterType="com.mybatis.entity.MediaEventInfoEntity" resultType="java.lang.Integer">
+		select count(*) from media_event_info where 1=1
+		<if test="meid != null" >
+			and meid=#{meid,jdbcType=INTEGER}
+		</if>
+		<if test="msid != null" >
+			and msid=#{msid,jdbcType=VARCHAR}
+		</if>
+		<if test="name != null" >
+			and name=#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null" >
+			and start_time=#{startTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null" >
+			and end_time=#{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="keywords != null" >
+			and keywords=#{keywords,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null" >
+			and user_id=#{userId,jdbcType=INTEGER}
+		</if>
+		<if test="lastModify != null" >
+			and last_modify=#{lastModify,jdbcType=TIMESTAMP}
+		</if>
+	</select>
+	<select id="maxId" resultType="java.lang.Integer">
+		select max(meid) from media_event_info
+	</select>
+	<select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from media_event_info
+		where meid= #{meid,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from media_event_info
+	</select>
+</mapper>

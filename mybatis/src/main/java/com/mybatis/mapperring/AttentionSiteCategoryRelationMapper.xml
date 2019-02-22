@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.AttentionSiteCategoryRelationDao">
+	<resultMap id="BaseResultMap" type="com.mybatis.entity.AttentionSiteCategoryRelationEntity">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="site_id" property="siteId" jdbcType="INTEGER"/>
+		<result column="site_cate_id" property="siteCateId" jdbcType="INTEGER"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,site_id,site_cate_id
+	</sql>
+	<insert id="insertRecord" parameterType="com.mybatis.entity.AttentionSiteCategoryRelationEntity">
+		insert into attention_site_category_relation(id,
+			site_id,
+			site_cate_id)
+		values (#{id,jdbcType=INTEGER},
+			#{siteId,jdbcType=INTEGER},
+			#{siteCateId,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.mybatis.entity.AttentionSiteCategoryRelationEntity">
+		insert into attention_site_category_relation
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				id,
+			</if>
+			<if test="siteId != null" >
+				site_id,
+			</if>
+			<if test="siteCateId != null" >
+				site_cate_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null" >
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="siteId != null" >
+				#{siteId,jdbcType=INTEGER},
+			</if>
+			<if test="siteCateId != null" >
+				#{siteCateId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from attention_site_category_relation where id= #{id,jdbcType=INTEGER}
+	</delete>
+	<update id="updateByIdSelective" parameterType="com.mybatis.entity.AttentionSiteCategoryRelationEntity">
+		update attention_site_category_relation
+		<set>
+			<if test="siteId != null" >
+				site_id=#{siteId,jdbcType=INTEGER},
+			</if>
+			<if test="siteCateId != null" >
+				site_cate_id=#{siteCateId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id= #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateById" parameterType="com.mybatis.entity.AttentionSiteCategoryRelationEntity">
+		update attention_site_category_relation set
+			site_id=#{siteId,jdbcType=INTEGER},
+			site_cate_id=#{siteCateId,jdbcType=INTEGER}
+		where id= #{id,jdbcType=INTEGER}
+	</update>
+	<select id="countRecord" resultType="java.lang.Integer">
+		select count(*) from attention_site_category_relation
+	</select>
+	<select id="countSelective" parameterType="com.mybatis.entity.AttentionSiteCategoryRelationEntity" resultType="java.lang.Integer">
+		select count(*) from attention_site_category_relation where 1=1
+		<if test="id != null" >
+			and id=#{id,jdbcType=INTEGER}
+		</if>
+		<if test="siteId != null" >
+			and site_id=#{siteId,jdbcType=INTEGER}
+		</if>
+		<if test="siteCateId != null" >
+			and site_cate_id=#{siteCateId,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="maxId" resultType="java.lang.Integer">
+		select max(id) from attention_site_category_relation
+	</select>
+	<select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from attention_site_category_relation
+		where id= #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from attention_site_category_relation
+	</select>
+</mapper>
